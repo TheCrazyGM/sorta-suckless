@@ -4,6 +4,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#ifndef VERSION
+#define VERSION "not-specified"
+#endif
+
 static Atom netwmname;
 static Display *dpy;
 
@@ -67,6 +71,11 @@ int main(int argc, char *argv[]) {
     return EXIT_FAILURE;
   }
   netwmname = XInternAtom(dpy, "_NET_WM_NAME", False);
+
+  if ((argc > 1) && !strncmp(argv[1], "-v", 3)) {
+    printf("lsw-%s, © 2025 Michael Garcia\n", VERSION);
+    exit(EXIT_SUCCESS);
+  }
 
   if (argc < 2) {
     lsw(DefaultRootWindow(dpy));
