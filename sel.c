@@ -24,7 +24,12 @@
  * fetching large selections. Tune this value if you have special
  * performance requirements.
  */
+
 #define CHUNK_SIZE 4096L
+
+#ifndef VERSION
+#define VERSION "not-specified"
+#endif
 
 /*
  * getsel_chunk()
@@ -104,7 +109,7 @@ int main(int argc, char **argv) {
   Window win;
 
   if ((argc > 1) && !strncmp(argv[1], "-v", 3)) {
-    fputs("sel-" VERSION ", Copyright © 2025 Michael Garcia\n", stdout);
+    printf("sel-%s, © 2025 Michael Garcia\n", VERSION);
     exit(EXIT_SUCCESS);
   }
 
