@@ -1,6 +1,6 @@
 # X11 Utility Suite – `sel`, `lsw`, `wmname`
 
-This repository contains three small, dependency-free X11 helpers written in C:
+This repository contains three small, dependency-free X11 helpers written in C, inspired by the [suckless](https://suckless.org) suite:
 
 - **`sel`** – prints the current **PRIMARY** selection to `stdout`.
 - **`lsw`** – lists the mapped child windows of a given window (defaults to the root window) together with their XID and title.
