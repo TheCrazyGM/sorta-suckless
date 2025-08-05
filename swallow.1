@@ -1,0 +1,43 @@
+.TH swallow 1 swallow\-VERSION
+.SH NAME
+swallow \- temporarily hide the focused X11 window while running a command
+.SH SYNOPSIS
+.B swallow
+.RI [ command [ args ... ] ]
+.br
+.B swallow
+.B \-v
+.SH DESCRIPTION
+.B swallow
+unmaps (hides) the window that currently has the input focus, executes the
+specified
+.I command
+and then maps (shows) the window again.  This is useful for launching
+transient child programs – such as password prompts – without the parent
+window flashing underneath.
+.PP
+If no
+.I command
+is given,
+.B swallow
+exits immediately after hiding and re-showing the focused window.
+.PP
+The program is careful to escape shell-special characters in the supplied
+arguments before passing them to
+.BR system (3).
+.SH OPTIONS
+.TP
+.B \-v
+Display version information and exit.
+.SH EXIT STATUS
+.B swallow
+returns the exit status of the invoked command, or
+.B 1
+if it cannot open the X display.
+.SH AUTHORS
+Michael Garcia <thecrazygm at gmail dot com> (current maintainer)
+.SH LICENSE
+MIT/X Consortium License. See the LICENSE file for redistribution terms.
+.SH SEE ALSO
+.BR xprop (1),
+.BR wmname (1)

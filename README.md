@@ -1,15 +1,22 @@
-# sel – Simple X11 Selection Printer
+# X11 Utility Suite – `sel`, `lsw`, `wmname`
 
-`sel` is a tiny utility that copies the current **PRIMARY** selection from the X11 server and prints it to `stdout` as UTF-8 text.  It is designed to be minimal, dependency-free, and script-friendly.
+This repository contains three small, dependency-free X11 helpers written in C:
+
+- **`sel`** – prints the current **PRIMARY** selection to `stdout`.
+- **`lsw`** – lists the mapped child windows of a given window (defaults to the root window) together with their XID and title.
+- **`wmname`** – prints or sets the `_NET_WM_NAME` (EWMH) property of the root window.
+- **`swallow`** – temporarily hides the focused window while running a command.
+
+They share a common build system and install into the same `$PREFIX/bin` directory.
 
 ---
 
 ## Features
 
-* Reads arbitrarily large selections in 4 KiB chunks (see `CHUNK_SIZE` in `sel.c`).
-* UTF-8 aware – requests the `UTF8_STRING` target first and falls back gracefully.
-* Zero configuration: just build the single C source file.
-* MIT-licensed, ~100 lines of readable C.
+- Reads arbitrarily large selections in 4 KiB chunks (see `CHUNK_SIZE` in `sel.c`).
+- UTF-8 aware – requests the `UTF8_STRING` target first and falls back gracefully.
+- Zero configuration: just build the single C source file.
+- MIT-licensed, ~100 lines of readable C.
 
 ---
 
@@ -52,22 +59,42 @@ sel > selection.txt
 
 ---
 
+## Other Utilities
+
+Below are quick examples of the additional tools:
+
+```sh
+lsw                    # list top-level windows on the root window
+lsw 0x3600007          # list children of a specific XID
+
+wmname                  # print current WM name
+wmname LG3D             # work-around for old Java toolkits
+
+swallow passmenu         # hide parent window while passmenu runs
+```
+
+---
+
 ## Files
 
-* `sel.c` – main program
-* `Makefile` – build rules (uses `config.mk` for local overrides)
-* `LICENSE` – MIT license
+- `sel.c`, `lsw.c`, `wmname.c`, `swallow.c` – source files for each utility
+- `sel.1`, `lsw.1`, `wmname.1`, `swallow.1` – manual pages (installed to `$MANPREFIX/man1`)
+- `Makefile`, `config.mk` – build rules and system-specific overrides
+- `LICENSE` – MIT license
 
 ---
 
 ## License
 
-This project is released under the terms of the MIT license.  See the `LICENSE` file for the full text.
+This project is released under the terms of the MIT license. See the `LICENSE` file for the full text.
 
 ---
 
-## Author
+## Authors
 
-Michael Garcia <thecrazygm@gmail.com>
+Original code by Anselm R. Garbe.
+Current maintenance and additional utilities by Michael Garcia <thecrazygm@gmail.com>.
+
+---
 
 Contributions and pull requests are welcome.

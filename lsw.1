@@ -1,0 +1,22 @@
+.TH LSW 1 lsw\-VERSION
+.SH NAME
+lsw \- list windows
+.SH SYNOPSIS
+.B lsw
+.RI [ window ...]
+.SH DESCRIPTION
+.B lsw
+prints the XID and title of each child of the specified
+.IR window .
+If no windows are specified, the root window is used.  Only mapped
+(non-override-redirect) child windows are listed, ordered from topmost
+to bottommost.
+.SH AUTHORS
+Anselm R Garbe <garbeam at gmail dot com>
+.br
+Michael Garcia <thecrazygm at gmail dot com> (current maintainer)
+.SH LICENSE
+MIT/X Consortium License. See the LICENSE file for redistribution terms.
+.SH SEE ALSO
+.BR xwininfo (1),
+.BR wmctrl (1)

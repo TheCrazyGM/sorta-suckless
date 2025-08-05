@@ -1,0 +1,28 @@
+.TH WMNAME 1 wmname\-VERSION
+.SH NAME
+wmname \- print or set the EWMH WM name
+.SH SYNOPSIS
+.B wmname
+.IR [name]
+.SH DESCRIPTION
+.B wmname
+without arguments prints the current EWMH _NET_WM_NAME property of the
+root window (similar to how
+.BR hostname (1)
+prints the system hostname).
+.PP
+If
+.I name
+is supplied, the property is set to that string. This can work around Java
+and other toolkits that expect the window manager to be one of a hard-coded
+list.
+
+.SH AUTHORS
+Anselm R Garbe <garbeam at gmail dot com>
+.br
+Michael Garcia <thecrazygm at gmail dot com> (current maintainer)
+.SH LICENSE
+MIT/X Consortium License. See the LICENSE file for the terms of redistribution.
+.SH SEE ALSO
+.BR dwm (1),
+.BR xprop (1)

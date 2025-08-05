@@ -1,0 +1,22 @@
+.TH SEL 1 sel\-VERSION
+.SH NAME
+sel \- print the X11 PRIMARY selection
+.SH SYNOPSIS
+.B sel
+.IR [\-v]
+.SH DESCRIPTION
+.B sel
+prints the contents of the X11 PRIMARY selection (clipboard) to standard output as UTF-8 text. If there is no owner of the selection, nothing is printed and the program exits with a non-zero status.
+.SH OPTIONS
+.TP
+.B \-v
+Display version information and exit.
+.SH AUTHORS
+Anselm R Garbe <garbeam at gmail dot com>
+.br
+Michael Garcia <thecrazygm at gmail dot com> (current maintainer)
+.SH LICENSE
+MIT/X Consortium License. See the LICENSE file for the terms of redistribution.
+.SH SEE ALSO
+.BR xclip (1),
+.BR xsel (1)
