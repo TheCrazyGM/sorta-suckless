@@ -1,0 +1,46 @@
+.TH CLIP 1 clip-VERSION
+.SH NAME
+clip \- print the X11 CLIPBOARD selection
+.SH SYNOPSIS
+.B clip
+[
+.B \-h
+|
+.BR \-\-help
+|
+.B \-help
+]
+[
+.B \-v
+]
+.SH DESCRIPTION
+.B clip
+prints the contents of the X11
+.BR CLIPBOARD
+selection to standard output as UTF-8 text. It supports both normal and INCR
+transfer protocols.
+.PP
+If there is no owner for the
+.BR CLIPBOARD
+selection, nothing is printed.
+.SH OPTIONS
+.TP
+.B \-h, \-\-help, \-help
+Show usage and exit.
+.TP
+.B \-v
+Display version information and exit.
+.SH EXIT STATUS
+Returns 0 on success, non-zero on error.
+.SH EXAMPLES
+.TP
+Copy text into the clipboard (using xsel) and print it:
+.B echo hello | xsel \/\-bi ; clip
+.SH AUTHORS
+Michael Garcia <thecrazygm at gmail dot com>
+.SH LICENSE
+MIT/X Consortium License. See the LICENSE file for the terms of redistribution.
+.SH SEE ALSO
+.BR sel (1),
+.BR xclip (1),
+.BR xsel (1)

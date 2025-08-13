@@ -1,0 +1,48 @@
+.TH OPACITY 1 opacity-VERSION
+.SH NAME
+opacity \- get or set a window's opacity (_NET_WM_WINDOW_OPACITY)
+.SH SYNOPSIS
+.B opacity
+.I window-id
+[
+.I 0..1
+]
+[
+.B \-v
+]
+.SH DESCRIPTION
+.B opacity
+gets or sets the EWMH
+.BR _NET_WM_WINDOW_OPACITY
+property of the specified window. Without a value argument, the current
+opacity is printed as a floating point number in the range 0.0..1.0 along with
+its raw 32-bit hexadecimal representation. When a value is supplied, it must be
+in the range 0.0..1.0 and the corresponding 32-bit cardinal is written to the
+window property.
+.PP
+If the property is not present, many compositors treat the window as fully
+opaque; in that case
+.B opacity
+prints
+.I 1.000000 (unset)
+.
+.SH OPTIONS
+.TP
+.B \-v
+Display version information and exit.
+.SH EXIT STATUS
+Returns 0 on success, non-zero on error.
+.SH EXAMPLES
+.TP
+Read opacity of window 0x3e00007:
+.B opacity 0x3e00007
+.TP
+Set opacity to 75%:
+.B opacity 0x3e00007 0.75
+.SH AUTHORS
+Michael Garcia <thecrazygm at gmail dot com>
+.SH LICENSE
+MIT/X Consortium License. See the LICENSE file for the terms of redistribution.
+.SH SEE ALSO
+.BR xprop (1),
+.BR picom (1)

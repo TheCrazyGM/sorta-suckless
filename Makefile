@@ -6,10 +6,10 @@ include config.mk
 # allow overriding linker; default to CC
 LD ?= ${CC}
 
-PROGS = sel lsw wmname swallow
+PROGS = sel lsw wmname swallow wname opacity clip
 BINDIR = bin
 BIN = $(addprefix $(BINDIR)/,$(PROGS))
-SRC = sel.c lsw.c wmname.c swallow.c
+SRC = sel.c lsw.c wmname.c swallow.c wname.c opacity.c clip.c
 OBJ = ${SRC:.c=.o}
 
 # default target
@@ -45,6 +45,21 @@ $(BINDIR)/wmname: wmname.o | $(BINDIR)
 	@strip $@
 
 $(BINDIR)/swallow: swallow.o | $(BINDIR)
+	@echo CC -o $@
+	@${CC} -o $@ $< ${LDFLAGS}
+	@strip $@
+
+$(BINDIR)/wname: wname.o | $(BINDIR)
+	@echo CC -o $@
+	@${CC} -o $@ $< ${LDFLAGS}
+	@strip $@
+
+$(BINDIR)/opacity: opacity.o | $(BINDIR)
+	@echo CC -o $@
+	@${CC} -o $@ $< ${LDFLAGS}
+	@strip $@
+
+$(BINDIR)/clip: clip.o | $(BINDIR)
 	@echo CC -o $@
 	@${CC} -o $@ $< ${LDFLAGS}
 	@strip $@

@@ -1,0 +1,37 @@
+.TH "WNAME" "1" "YYYY-MM-DD" "wname-VERSION" "User Commands"
+.SH NAME
+wname \- get or set a window's UTF-8 name (_NET_WM_NAME)
+.SH SYNOPSIS
+.B wname
+.RB [ \-v ]
+.I window-id
+.RI [ new-title ]
+.SH DESCRIPTION
+.B wname
+gets or sets the EWMH
+.BR _NET_WM_NAME
+property of the specified window. When
+.I new-title
+is omitted, the current title is printed to standard output. When
+.I new-title
+is provided, the UTF-8 title is set on the window.
+.SH OPTIONS
+.TP
+.B \-v
+Display version information and exit.
+.SH EXIT STATUS
+Returns 0 on success, non-zero on error.
+.SH EXAMPLES
+.TP
+Print the title of window 0x3e00007:
+.B wname 0x3e00007
+.TP
+Set a new title on window 0x3e00007:
+.B wname 0x3e00007 "My New Title"
+.SH AUTHORS
+Michael Garcia <thecrazygm at gmail dot com>
+.SH LICENSE
+MIT/X Consortium License. See the LICENSE file for the terms of redistribution.
+.SH SEE ALSO
+.BR xprop (1),
+.BR wmname (1)
