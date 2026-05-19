@@ -23,7 +23,8 @@ static int get_opacity(Display *dpy, Window w, uint32_t *out) {
 
   if (XGetWindowProperty(dpy, w, opacity, 0, 1, False, XA_CARDINAL,
                          &actual_type, &actual_format, &nitems, &bytes_after,
-                         &prop) != Success || !prop || nitems < 1) {
+                         &prop) != Success ||
+      !prop || nitems < 1) {
     if (prop)
       XFree(prop);
     return 0;

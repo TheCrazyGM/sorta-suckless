@@ -27,7 +27,8 @@ static char *get_utf8_name(Display *dpy, Window win) {
 
   if (XGetWindowProperty(dpy, win, net_wm_name, 0L, (~0L), False, utf8,
                          &actual_type, &actual_format, &nitems, &bytes_after,
-                         &prop) == Success && prop) {
+                         &prop) == Success &&
+      prop) {
     strncpy(buf, (const char *)prop, sizeof(buf));
     buf[sizeof(buf) - 1] = '\0';
     XFree(prop);

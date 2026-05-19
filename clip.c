@@ -37,8 +37,8 @@ static int print_clipboard(Display *dpy, Window win) {
 
   /* Peek at the property */
   if (XGetWindowProperty(dpy, win, prop, 0, (~0L), False, AnyPropertyType,
-                         &type, &format, &nitems, &bytes_after, &data) !=
-          Success ||
+                         &type, &format, &nitems, &bytes_after,
+                         &data) != Success ||
       type == None) {
     if (data)
       XFree(data);
@@ -61,8 +61,8 @@ static int print_clipboard(Display *dpy, Window win) {
                  pe.xproperty.state == PropertyNewValue));
 
       if (XGetWindowProperty(dpy, win, prop, 0, (~0L), True, AnyPropertyType,
-                             &type, &format, &nitems, &bytes_after, &data) !=
-          Success) {
+                             &type, &format, &nitems, &bytes_after,
+                             &data) != Success) {
         return 0;
       }
       if (type == None) {
