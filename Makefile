@@ -6,10 +6,10 @@ include config.mk
 # allow overriding linker; default to CC
 LD ?= ${CC}
 
-PROGS = sel lsw wmname swallow wname opacity clip
+PROGS = sel lsw wmname swallow wname opacity clip sprop slock tabbed
 BINDIR = bin
 BIN = $(addprefix $(BINDIR)/,$(PROGS))
-SRC = sel.c lsw.c wmname.c swallow.c wname.c opacity.c clip.c
+SRC = sel.c lsw.c wmname.c swallow.c wname.c opacity.c clip.c sprop.c slock.c tabbed.c
 OBJ = ${SRC:.c=.o}
 
 # default target
@@ -60,6 +60,21 @@ $(BINDIR)/opacity: opacity.o | $(BINDIR)
 	@strip $@
 
 $(BINDIR)/clip: clip.o | $(BINDIR)
+	@echo CC -o $@
+	@${CC} -o $@ $< ${LDFLAGS}
+	@strip $@
+
+$(BINDIR)/sprop: sprop.o | $(BINDIR)
+	@echo CC -o $@
+	@${CC} -o $@ $< ${LDFLAGS}
+	@strip $@
+
+$(BINDIR)/slock: slock.o | $(BINDIR)
+	@echo CC -o $@
+	@${CC} -o $@ $< ${LDFLAGS}
+	@strip $@
+
+$(BINDIR)/tabbed: tabbed.o | $(BINDIR)
 	@echo CC -o $@
 	@${CC} -o $@ $< ${LDFLAGS}
 	@strip $@

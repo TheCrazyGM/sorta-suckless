@@ -31,11 +31,15 @@ static char *getname(Window win) {
     strncpy(buf, list[0], sizeof(buf));
     buf[sizeof(buf) - 1] = '\0';
     XFreeStringList(list);
+  } else if (prop.value) {
+    unsigned long len = (prop.nitems < sizeof(buf) - 1) ? prop.nitems : (sizeof(buf) - 1);
+    memcpy(buf, prop.value, len);
+    buf[len] = '\0';
   } else {
-    strncpy(buf, (char *)prop.value, sizeof(buf));
-    buf[sizeof(buf) - 1] = '\0';
+    buf[0] = '\0';
   }
-  XFree(prop.value);
+  if (prop.value)
+    XFree(prop.value);
 
   return buf;
 }

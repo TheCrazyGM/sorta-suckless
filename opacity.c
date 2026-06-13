@@ -24,23 +24,24 @@ static int get_opacity(Display *dpy, Window w, uint32_t *out) {
   if (XGetWindowProperty(dpy, w, opacity, 0, 1, False, XA_CARDINAL,
                          &actual_type, &actual_format, &nitems, &bytes_after,
                          &prop) != Success ||
-      !prop || nitems < 1) {
+      !prop || nitems < 1 || actual_format != 32) {
     if (prop)
       XFree(prop);
     return 0;
   }
 
-  /* Property is 32-bit cardinal */
-  uint32_t val = *(uint32_t *)prop;
+  /* Property is returned as an array of long if format is 32 */
+  unsigned long val = *(unsigned long *)prop;
   XFree(prop);
-  *out = val;
+  *out = (uint32_t)val;
   return 1;
 }
 
 static void set_opacity(Display *dpy, Window w, uint32_t val) {
   Atom opacity = XInternAtom(dpy, "_NET_WM_WINDOW_OPACITY", False);
+  unsigned long long_val = val;
   XChangeProperty(dpy, w, opacity, XA_CARDINAL, 32, PropModeReplace,
-                  (unsigned char *)&val, 1);
+                  (unsigned char *)&long_val, 1);
   XSync(dpy, False);
 }
 

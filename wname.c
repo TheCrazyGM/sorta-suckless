@@ -29,8 +29,13 @@ static char *get_utf8_name(Display *dpy, Window win) {
                          &actual_type, &actual_format, &nitems, &bytes_after,
                          &prop) == Success &&
       prop) {
-    strncpy(buf, (const char *)prop, sizeof(buf));
-    buf[sizeof(buf) - 1] = '\0';
+    if (actual_format == 8) {
+      unsigned long len = (nitems < sizeof(buf) - 1) ? nitems : (sizeof(buf) - 1);
+      memcpy(buf, prop, len);
+      buf[len] = '\0';
+    } else {
+      buf[0] = '\0';
+    }
     XFree(prop);
     return buf;
   }
@@ -46,8 +51,9 @@ static char *get_utf8_name(Display *dpy, Window win) {
       buf[sizeof(buf) - 1] = '\0';
       XFreeStringList(list);
     } else if (prop_name.value) {
-      strncpy(buf, (const char *)prop_name.value, sizeof(buf));
-      buf[sizeof(buf) - 1] = '\0';
+      unsigned long len = (prop_name.nitems < sizeof(buf) - 1) ? prop_name.nitems : (sizeof(buf) - 1);
+      memcpy(buf, prop_name.value, len);
+      buf[len] = '\0';
     }
     if (prop_name.value)
       XFree(prop_name.value);

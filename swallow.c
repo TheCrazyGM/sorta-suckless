@@ -13,59 +13,43 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#define UNSAFE_CHARS "`\"'()[]&$;|<> 	"
-#define CMD_BUF_SIZE 1024
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
 
 #ifndef VERSION
 #define VERSION "not-specified"
 #endif
 
 /*
- * run_command() - Build a command string from the argv parameters.
+ * run_command() - Execute the provided command directly.
  *
- * This version escapes any character found in UNSAFE_CHARS and checks
- * for buffer overflow before appending each character.
+ * This version uses fork() and execvp() to completely bypass the shell,
+ * eliminating any possibility of command injection.
  */
 static void run_command(char **argv) {
-  char *arg;
-  char cmd[CMD_BUF_SIZE];
-  size_t len = 0; /* Current length in the buffer */
-  int i;
-
-  cmd[0] = '\0';
-
-  /* Skip the current program's name */
-  argv++;
-
-  /* Process each argument */
-  while ((arg = *argv++)) {
-    for (i = 0; arg[i] != '\0'; i++) {
-      /* If the character is unsafe, add a backslash escape */
-      if (strchr(UNSAFE_CHARS, arg[i])) {
-        if (len + 1 >= CMD_BUF_SIZE) {
-          fprintf(stderr, "Command buffer overflow in escape\n");
-          exit(EXIT_FAILURE);
-        }
-        cmd[len++] = '\\';
-      }
-      if (len + 1 >= CMD_BUF_SIZE) {
-        fprintf(stderr, "Command buffer overflow in copy\n");
-        exit(EXIT_FAILURE);
-      }
-      cmd[len++] = arg[i];
-    }
-    /* Add an extra space between arguments */
-    if (len + 1 >= CMD_BUF_SIZE) {
-      fprintf(stderr, "Command buffer overflow in spacing\n");
-      exit(EXIT_FAILURE);
-    }
-    cmd[len++] = ' ';
+  if (argv[1] == NULL) {
+    return;
   }
-  cmd[len] = '\0';
 
-  /* Run the command using the system call */
-  system(cmd);
+  pid_t pid = fork();
+  if (pid < 0) {
+    perror("fork");
+    exit(EXIT_FAILURE);
+  }
+
+  if (pid == 0) {
+    /* Child process: execute command */
+    execvp(argv[1], &argv[1]);
+    perror("execvp");
+    _exit(EXIT_FAILURE);
+  } else {
+    /* Parent process: wait for child to complete */
+    int status;
+    if (waitpid(pid, &status, 0) < 0) {
+      perror("waitpid");
+    }
+  }
 }
 
 int main(int argc, char **argv) {
@@ -81,6 +65,7 @@ int main(int argc, char **argv) {
   /* Version flag */
   if (argc > 1 && !strncmp(argv[1], "-v", 3)) {
     printf("swallow-%s, © 2025 Michael Garcia\n", VERSION);
+    XCloseDisplay(dis);
     return EXIT_SUCCESS;
   }
 
