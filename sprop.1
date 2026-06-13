@@ -1,0 +1,35 @@
+.TH SPROP 1 sprop-VERSION
+.SH NAME
+sprop \- get or set a window's X11 property value
+.SH SYNOPSIS
+.B sprop
+.I window-id
+.I property-name
+[
+.I value
+]
+[
+.B \-v
+]
+.SH DESCRIPTION
+.B sprop
+gets or sets the value of the specified X11 window property. Without a value argument, the current property value is printed. For format 8 properties, it is printed as text; for format 16, as a list of integers; and for format 32, as a list of hexadecimal values. When a value is supplied, it is written as a UTF-8 string (format 8).
+.SH OPTIONS
+.TP
+.B \-v
+Display version information and exit.
+.SH EXIT STATUS
+Returns 0 on success, non-zero on error.
+.SH EXAMPLES
+.TP
+Read WM_CLASS of window 0x3e00007:
+.B sprop 0x3e00007 WM_CLASS
+.TP
+Set custom property _MY_ATOM:
+.B sprop 0x3e00007 _MY_ATOM "hello world"
+.SH AUTHORS
+Michael Garcia <thecrazygm at gmail dot com>
+.SH LICENSE
+MIT/X Consortium License. See the LICENSE file for the terms of redistribution.
+.SH SEE ALSO
+.BR xprop (1)

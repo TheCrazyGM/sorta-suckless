@@ -1,0 +1,48 @@
+.TH SLOCK 1 slock-VERSION
+.SH NAME
+slock \- simple screen locker
+.SH SYNOPSIS
+.B slock
+[
+.B \-v
+]
+.SH DESCRIPTION
+.B slock
+is a simple screen locker. It grabs the keyboard and mouse pointer, maps a fullscreen black window, and locks the screen. 
+.PP
+Feedback is displayed via background color changes:
+.TP
+.I Black
+Default state, screen is locked.
+.TP
+.I Blue
+Typing state, characters have been entered.
+.TP
+.I Red
+Authentication failed, input cleared.
+.PP
+To authenticate, type your password and press
+.B Return
+or
+.B Enter
+. To clear input, press
+.B Escape
+or backspace all characters.
+.PP
+Since this version runs without setuid privileges, it validates your password against the
+.B SLOCK_PASSWORD
+environment variable, falling back to a plain-text file at
+.B ~/.slock_password
+.
+.SH OPTIONS
+.TP
+.B \-v
+Display version information and exit.
+.SH EXIT STATUS
+Returns 0 on success, non-zero on error.
+.SH AUTHORS
+Michael Garcia <thecrazygm at gmail dot com>
+.SH LICENSE
+MIT/X Consortium License. See the LICENSE file for the terms of redistribution.
+.SH SEE ALSO
+.BR slock (1)
